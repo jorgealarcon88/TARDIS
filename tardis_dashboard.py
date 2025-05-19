@@ -6,6 +6,7 @@ from dataset import StationData as sdt
 from dataset import Predict as pred
 from dataset import LateData as ld
 from dataset import arrival_station_list as asl
+from dataset import plot_poly_model as ppm
 
 
 csv = pd.read_csv("cleaned_dataset.csv")
@@ -95,6 +96,7 @@ date_list = ["2018-01",
 
 # Every "render" functions define a window to show datas
 def render_subpageA():
+    st.set_page_config(page_title="Journey datas")
     st.title(f"⏰ Journey datas")
     start_date, end_date = st.select_slider(
         "Select the dates that you want to know",
@@ -116,7 +118,8 @@ def render_subpageA():
     st.button("🏠 Return home page", on_click=go_to, args=('home',))
 
 def render_subpageB():
-    st.title(f"🔮 Predictions")
+    st.set_page_config(page_title="Predictions")
+    st.title("🔮 Predictions")
     st.write("Welcome to predictions page !")
     departure = st.selectbox("Select a departure station", station_list)
     arrival = st.selectbox("Select an arrival station", asl(csv, [departure]))
@@ -124,10 +127,16 @@ def render_subpageB():
     average = predict.moy("Average journey time")
     nb_trains = predict.moy("Number of scheduled trains")
     model = predict.model("Number of scheduled trains", "Number of trains delayed at departure")
-    # predict.moy("Number of trains delayed at departure")
+    r2 = predict.r2("Number of scheduled trains", "Number of trains delayed at departure")
+    rmse = predict.rmse("Number of scheduled trains", "Number of trains delayed at departure")
     st.subheader("The predictions are :")
     st.write(f"- The travel time will be approximately {int(average)}min on average.")
-    st.write(f"- There is an average of {int(nb_trains)} scheduled trains and {int(model(nb_trains))} of them are delayed at departure.")
+    st.write(f"- There is an average of {int(nb_trains)} scheduled trains, {int(model(nb_trains))} (±{int(rmse)}) of them are delayed at departure.")
+    if r2 < 1 and r2 > -1:
+        st.write(f"This information is {int(abs(r2) * 100)}% accurate")
+    else:
+        st.write(f"This data may be inaccurate or implausible.")
+    ppm(predict.csv, "Number of scheduled trains", "Number of trains delayed at departure")
     st.button("🏠 Return home page", on_click=go_to, args=('home',))
 
 # This page is a bonus, to show users' reviews
@@ -135,7 +144,7 @@ def render_subpageC():
     st.title("⭐ Users' reviews")
     st.write("Welcome to users' reviews page !")
     st.button("🏠 Return home page", on_click=go_to, args=('home',))
-
+    st.write("<br><br><br><br><br><br><br><br><br><br><br><h5 style='text-align: center;'>Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre</h5>", unsafe_allow_html=True)
 # Print home page
 def home():
     st.title("🏠 Welcome to home page")
