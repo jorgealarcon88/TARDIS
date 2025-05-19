@@ -130,7 +130,9 @@ def render_subpageB():
     r2 = predict.r2("Number of scheduled trains", "Number of trains delayed at departure")
     rmse = predict.rmse("Number of scheduled trains", "Number of trains delayed at departure")
     st.subheader("The predictions are :")
-    st.write(f"- The travel time will be approximately {int(average)}min on average.")
+    hours = average // 60
+    minutes = average % 60
+    st.write(f"- The travel time will be approximately {int(hours)} h {int(minutes)} min on average.")
     st.write(f"- There is an average of {int(nb_trains)} scheduled trains, {int(model(nb_trains))} (±{int(rmse)}) of them are delayed at departure.")
     if r2 < 1 and r2 > -1:
         st.write(f"This information is {int(abs(r2) * 100)}% accurate")
