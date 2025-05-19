@@ -7,6 +7,7 @@ from dataset import Predict as pred
 from dataset import LateData as ld
 from dataset import arrival_station_list as asl
 
+
 csv = pd.read_csv("cleaned_dataset.csv")
 
 # Initialized state at 'home'
@@ -122,15 +123,16 @@ def render_subpageB():
     predict = pred(csv, [departure], [arrival])
     average = predict.moy("Average journey time")
     nb_trains = predict.moy("Number of scheduled trains")
-    nb_late_trains = predict.moy("Number of trains delayed at departure")
+    model = predict.model("Number of scheduled trains", "Number of trains delayed at departure")
+    # predict.moy("Number of trains delayed at departure")
     st.subheader("The predictions are :")
-    st.write(f"- The travel time will be approximately {average}min on average.")
-    st.write(f"- There is an average of {nb_trains} scheduled trains and {nb_late_trains} of them are delayed.")
+    st.write(f"- The travel time will be approximately {int(average)}min on average.")
+    st.write(f"- There is an average of {int(nb_trains)} scheduled trains and {int(model(nb_trains))} of them are delayed at departure.")
     st.button("🏠 Return home page", on_click=go_to, args=('home',))
 
 # This page is a bonus, to show users' reviews
 def render_subpageC():
-    st.title(f"⭐ Users' reviews")
+    st.title("⭐ Users' reviews")
     st.write("Welcome to users' reviews page !")
     st.button("🏠 Return home page", on_click=go_to, args=('home',))
 
