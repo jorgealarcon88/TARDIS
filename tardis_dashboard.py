@@ -38,7 +38,7 @@ translations = {
         "credit": "Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
     },
     "fr": {
-        "title": "🚄 Tableau de bord Train",
+        "title": "🚄 données des trains",
         "journey_data": "⏰ Données",
         "predictions": "🔮 Prédictions",
         "users_reviews": "⭐ Avis utilisateurs",
@@ -48,7 +48,7 @@ translations = {
         "select_stations": "Sélectionnez la ou les gares",
         "select_station": "Sélectionnez une seule gare pour connaître les causes des retards",
         "number_station_warning": "Vous devez sélectionner entre 1 et 10 gares",
-        "dataset_missing": "Impossible d'afficher les données car le jeu de données est indisponible.",
+        "dataset_missing": "Impossible d'afficher les données car les données sont indisponibles.",
         "return_home": "🏠 Retour à la page d'accueil",
         "average_travel_time": "Le temps de trajet sera d'environ",
         "scheduled_trains": "trains prévus",
@@ -62,6 +62,33 @@ translations = {
         "predictions_welcome": "Bienvenue sur la page des prédictions !",
         "users_reviews_welcome": "Bienvenue sur la page des avis utilisateurs !",
         "credit": "Crédit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
+    },
+     "es": {
+        "title": "🚄 donnéa del traino",
+        "journey_data": "⏰ Donnéa",
+        "predictions": "🔮 Prédicta",
+        "users_reviews": "⭐ utilisators Avio",
+        "welcome_home": "🏠 Bienvenido en la pago de accueil",
+        "choose_window": "Selectionar la fenêtra para accédar",
+        "select_dates": "Sélectionnar los dateos que vos souhaitos consultar",
+        "select_stations": "Sélectionnar la o los garos",
+        "select_station": "Sélectionnar una uniqua garo para connaîtrar los causeas del retardo",
+        "number_station_warning": "Vosotros devos sélectionnar entre 1 y 10 garos",
+        "dataset_missing": "Impossiblé d'affichar los donnéos car el de donnéos esta indisponiblé.",
+        "return_home": "🏠 Retoura à la pago de accueil",
+        "average_travel_time": "El tiempo de trajero esta de environ",
+        "scheduled_trains": "traino prévos",
+        "delayed_trains": "de entro os sontos en retardé al départo",
+        "accuracy_info": "Esta information esta précisementé al {pct}%",
+        "accuracy_warning": "Esta donnéos puedo êstar inexacto o not mas plausiblé.",
+        "error_processing_data": "Una erreura esta survenido durante el traitemento de los donnéos : {err}",
+        "error_generating_predictions": "Una erreura esta survenido durante la générationa de la prédiction : {err}",
+        "select_departure": "Sélectionnar une garo de départo",
+        "select_arrival": "Sélectionnar una garo d'arrivado",
+        "predictions_welcome": "Bienvenido en la pago des prédiction !",
+        "users_reviews_welcome": "Bienvenido en la pago des avido utilisators !",
+        "credit": "\"Una rondonta sin fuente se pasa de frente !\"<br>"
+        "Crédito:<br> LOUVELO Roméo<br> LAGUNO Gaëllo<br> LEFEVRO Alexandro",
     }
 }
 
@@ -87,7 +114,7 @@ except Exception as e:
 st.set_page_config(page_title="Train Dashboard", page_icon="🚄", layout="wide")  # <-- layout wide pour responsive
 
 # --- Langue ---
-lang = st.sidebar.selectbox("Select Language / Choisir la langue", options=["en", "fr"], index=1)
+lang = st.sidebar.selectbox("Select Language / Choisir la langue", options=["en", "fr", "es"], index=1)
 
 # --- Navigation ---
 if 'page' not in st.session_state:
@@ -102,7 +129,7 @@ station_list = ["AIX EN PROVENCE TGV", "ANGERS SAINT LAUD", "ANGOULEME", "ANNECY
                 "LAUSANNE", "LAVAL", "LE CREUSOT MONTCEAU MONTCHANIN", "LE MANS", "LILLE", "LYON PART DIEU", "MACON LOCHE",
                 "MADRID", "MARNE LA VALLEE", "MARSEILLE ST CHARLES", "METZ", "MONTPELLIER", "MULHOUSE VILLE", "NANCY",
                 "NANTES", "NICE VILLE", "NIMES", "PARIS EST", "PARIS LYON", "PARIS MONTPARNASSE", "PARIS NORD",
-                "PARIS VAUGIRARD", "PERPIGNAN", "POTIIERS", "QUIMPER", "REIMS", "RENNES", "SAINT ETIENNE CHATEAUCREUX",
+                "PARIS VAUGIRARD", "PERPIGNAN", "POITIERS", "QUIMPER", "REIMS", "RENNES", "SAINT ETIENNE CHATEAUCREUX",
                 "ST MALO", "ST PIERRE DES CORPS", "STRASBOURG", "STUTTGART", "TOULON", "TOULOUSE MATABIAU", "TOURCOING",
                 "TOURS", "VALENCE ALIXAN TGV", "VANNES", "ZURICH"]
 
@@ -193,7 +220,7 @@ def home():
     for col, (title, page) in zip(cols, buttons):
         with col:
             st.subheader(title)
-            st.button(f"{'Access' if lang == 'en' else 'Accéder à'} {title}", on_click=go_to, args=(page,))
+            st.button(f"{'Access' if lang == 'en' else 'Accéder à' if lang == 'fr' else 'Accedar a'} {title}", on_click=go_to, args=(page,))
 
 def main():
     if st.session_state.page == 'home':
