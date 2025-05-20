@@ -103,8 +103,7 @@ def render_subpageA():
         options=date_list,
         value=("2018-01", "2024-12"),
     )
-    choices = st.multiselect("Select station(s)",
-                station_list)
+    choices = st.multiselect("Select station(s)", station_list)
     dates = [start_date, end_date]
     data = sdt(csv, dates)
     late_data = ld(csv, dates)
@@ -115,7 +114,7 @@ def render_subpageA():
         late_data.late_train_data(choices)
         station = st.selectbox("Select only one station to know the reasons of the late", choices)
         late_data.late_train_pct([station])
-    st.button("🏠 Return home page", on_click=go_to, args=('home',))
+    st.button("🏠 Return to home page", on_click=go_to, args=('home',))
 
 def render_subpageB():
     st.set_page_config(page_title="Predictions")
@@ -132,23 +131,29 @@ def render_subpageB():
     st.subheader("The predictions are :")
     hours = average // 60
     minutes = average % 60
-    st.write(f"- The travel time will be approximately {int(hours)} h {int(minutes)} min on average.")
-    st.write(f"- There is an average of {int(nb_trains)} scheduled trains, {int(model(nb_trains))} (±{int(rmse)}) of them are delayed at departure.")
-    if r2 < 1 and r2 > -1:
-        st.write(f"This information is {int(abs(r2) * 100)}% accurate")
+    st.markdown(f"""
+    - The travel time will be approximately <span style='color:#2171b5'><b>{int(hours)} h {int(minutes)} min</b></span> on average.  
+    - There is an average of <span style='color:#2171b5'><b>{int(nb_trains)}</b></span> scheduled trains, 
+    <span style='color:#2171b5'><b>{int(model(nb_trains))}</b></span> (±<span style='color:#2171b5'><b>{int(rmse)}</b></span>) of them are delayed at departure.
+    """, unsafe_allow_html=True)
+
+    if -1 < r2 < 1:
+        st.markdown(f"<i>This information is <span style='color:#2171b5'><b>{int(abs(r2) * 100)}%</b></span> accurate</i>", unsafe_allow_html=True)
     else:
         st.write(f"This data may be inaccurate or implausible.")
     ppm(predict.csv, "Number of scheduled trains", "Number of trains delayed at departure")
-    st.button("🏠 Return home page", on_click=go_to, args=('home',))
+    st.button("🏠 Return to home page", on_click=go_to, args=('home',))
 
 # This page is a bonus, to show users' reviews
 def render_subpageC():
+    st.set_page_config(page_title="Users' reviews")
     st.title("⭐ Users' reviews")
     st.write("Welcome to users' reviews page !")
-    st.button("🏠 Return home page", on_click=go_to, args=('home',))
+    st.button("🏠 Return to home page", on_click=go_to, args=('home',))
     st.write("<br><br><br><br><br><br><br><br><br><br><br><h5 style='text-align: center;'>Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre</h5>", unsafe_allow_html=True)
 # Print home page
 def home():
+    st.set_page_config(page_title="Home Page")
     st.title("🏠 Welcome to home page")
     st.subheader("Choose the window you want to access")
 
