@@ -1,4 +1,5 @@
 import streamlit as st
+st.set_page_config(page_title="Train Dashboard", page_icon="🚄", layout="centered")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -13,14 +14,14 @@ from pathlib import Path
 file_path = Path("cleaned_dataset.csv")
 
 try:
-    if file_path.exists():
+    if file_path.exists() and file_path.stat().st_size > 0:
         csv = pd.read_csv(file_path)
+    elif file_path.stat().st_size == 0:
+        csv = None
+        st.error("The dataset is empty. Please check the contents of 'cleaned_dataset.csv'.")
     else:
         csv = None
         st.warning("The cleaned dataset could not be found. Please make sure the file 'cleaned_dataset.csv' exists.")
-except pd.errors.EmptyDataError:
-    csv = None
-    st.error("The dataset is empty. Please check the contents of 'cleaned_dataset.csv'.")
 except pd.errors.ParserError:
     csv = None
     st.error("There was an error parsing the dataset. Please ensure 'cleaned_dataset.csv' is correctly formatted.")
@@ -48,7 +49,6 @@ date_list = ["2018-01", "2018-12", "2019-01", "2019-12", "2020-01", "2020-12", "
              "2022-12", "2023-01", "2023-12", "2024-01", "2024-12"]
 
 def render_subpageA():
-    st.set_page_config(page_title="Journey datas")
     st.title("\u23F0 Journey datas")
     if csv is None:
         st.error("Unable to display journey data because the dataset is not available.")
@@ -75,7 +75,6 @@ def render_subpageA():
     st.button("\U0001F3E0 Return to home page", on_click=go_to, args=('home',))
 
 def render_subpageB():
-    st.set_page_config(page_title="Predictions")
     st.title("\U0001F52E Predictions")
     if csv is None:
         st.error("Unable to display predictions because the dataset is not available.")
@@ -115,7 +114,6 @@ def render_subpageB():
     st.button("\U0001F3E0 Return to home page", on_click=go_to, args=('home',))
 
 def render_subpageC():
-    st.set_page_config(page_title="Users' reviews")
     st.title("\u2B50 Users' reviews")
     st.write("Welcome to users' reviews page !")
     st.button("\U0001F3E0 Return to home page", on_click=go_to, args=('home',))
@@ -123,7 +121,6 @@ def render_subpageC():
         <h5 style='text-align: center;'>Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre</h5>""", unsafe_allow_html=True)
 
 def home():
-    st.set_page_config(page_title="Home Page")
     st.title("\U0001F3E0 Welcome to home page")
 
     if csv is None:
