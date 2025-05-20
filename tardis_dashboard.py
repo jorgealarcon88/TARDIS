@@ -1,22 +1,76 @@
 import streamlit as st
-st.set_page_config(page_title="Train Dashboard", page_icon="🚄", layout="centered")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import os
+from pathlib import Path
 from dataset import StationData as sdt
 from dataset import Predict as pred
 from dataset import LateData as ld
 from dataset import arrival_station_list as asl
 from dataset import plot_poly_model as ppm
-from pathlib import Path
 
+# --- Traductions (avec emojis) ---
+translations = {
+    "en": {
+        "title": "🚄 Train Dashboard",
+        "journey_data": "⏰ Journey datas",
+        "predictions": "🔮 Predictions",
+        "users_reviews": "⭐ Users' reviews",
+        "welcome_home": "🏠 Welcome to home page",
+        "choose_window": "Choose the window you want to access",
+        "select_dates": "Select the dates that you want to know",
+        "select_stations": "Select station(s)",
+        "select_station": "Select only one station to know the reasons of the late",
+        "number_station_warning": "You have to select a number of station between 1 and 10",
+        "dataset_missing": "Unable to display data because the dataset is not available.",
+        "return_home": "🏠 Return to home page",
+        "average_travel_time": "The travel time will be approximately",
+        "scheduled_trains": "scheduled trains",
+        "delayed_trains": "of them are delayed at departure",
+        "accuracy_info": "This information is {pct}% accurate",
+        "accuracy_warning": "This data may be inaccurate or implausible.",
+        "error_processing_data": "An error occurred while processing journey data: {err}",
+        "error_generating_predictions": "An error occurred while generating predictions: {err}",
+        "select_departure": "Select a departure station",
+        "select_arrival": "Select an arrival station",
+        "predictions_welcome": "Welcome to predictions page !",
+        "users_reviews_welcome": "Welcome to users' reviews page !",
+        "credit": "Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
+    },
+    "fr": {
+        "title": "🚄 Tableau de bord Train",
+        "journey_data": "⏰ Données",
+        "predictions": "🔮 Prédictions",
+        "users_reviews": "⭐ Avis utilisateurs",
+        "welcome_home": "🏠 Bienvenue sur la page d'accueil",
+        "choose_window": "Choisissez la fenêtre à accéder",
+        "select_dates": "Sélectionnez les dates que vous souhaitez consulter",
+        "select_stations": "Sélectionnez la ou les gares",
+        "select_station": "Sélectionnez une seule gare pour connaître les causes des retards",
+        "number_station_warning": "Vous devez sélectionner entre 1 et 10 gares",
+        "dataset_missing": "Impossible d'afficher les données car le jeu de données est indisponible.",
+        "return_home": "🏠 Retour à la page d'accueil",
+        "average_travel_time": "Le temps de trajet sera d'environ",
+        "scheduled_trains": "trains prévus",
+        "delayed_trains": "d'entre eux sont en retard au départ",
+        "accuracy_info": "Cette information est précise à {pct}%",
+        "accuracy_warning": "Ces données peuvent être inexactes ou peu plausibles.",
+        "error_processing_data": "Une erreur est survenue lors du traitement des données : {err}",
+        "error_generating_predictions": "Une erreur est survenue lors de la génération des prédictions : {err}",
+        "select_departure": "Sélectionnez une gare de départ",
+        "select_arrival": "Sélectionnez une gare d'arrivée",
+        "predictions_welcome": "Bienvenue sur la page des prédictions !",
+        "users_reviews_welcome": "Bienvenue sur la page des avis utilisateurs !",
+        "credit": "Crédit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
+    }
+}
+
+# --- Chargement dataset ---
 file_path = Path("cleaned_dataset.csv")
-
 try:
     if file_path.exists() and file_path.stat().st_size > 0:
         csv = pd.read_csv(file_path)
-    elif file_path.stat().st_size == 0:
+    elif file_path.exists() and file_path.stat().st_size == 0:
         csv = None
         st.error("The dataset is empty. Please check the contents of 'cleaned_dataset.csv'.")
     else:
@@ -29,6 +83,13 @@ except Exception as e:
     csv = None
     st.error(f"An unexpected error occurred while loading the dataset: {str(e)}")
 
+# --- Config page ---
+st.set_page_config(page_title="Train Dashboard", page_icon="🚄", layout="wide")  # <-- layout wide pour responsive
+
+# --- Langue ---
+lang = st.sidebar.selectbox("Select Language / Choisir la langue", options=["en", "fr"], index=1)
+
+# --- Navigation ---
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
@@ -49,41 +110,37 @@ date_list = ["2018-01", "2018-12", "2019-01", "2019-12", "2020-01", "2020-12", "
              "2022-12", "2023-01", "2023-12", "2024-01", "2024-12"]
 
 def render_subpageA():
-    st.title("\u23F0 Journey datas")
+    st.title(translations[lang]["journey_data"])
     if csv is None:
-        st.error("Unable to display journey data because the dataset is not available.")
+        st.error(translations[lang]["dataset_missing"])
         return
-
-    start_date, end_date = st.select_slider("Select the dates that you want to know", options=date_list, value=("2018-01", "2024-12"))
-    choices = st.multiselect("Select station(s)", station_list)
+    start_date, end_date = st.select_slider(translations[lang]["select_dates"], options=date_list, value=("2018-01", "2024-12"))
+    choices = st.multiselect(translations[lang]["select_stations"], station_list)
     dates = [start_date, end_date]
-
     try:
         data = sdt(csv, dates)
         late_data = ld(csv, dates)
 
         if len(choices) > 10 or len(choices) == 0:
-            st.warning("You have to select a number of station between 1 and 10")
+            st.warning(translations[lang]["number_station_warning"])
         else:
-            data.station_scheduled_late(choices)
-            late_data.late_train_data(choices)
-            station = st.selectbox("Select only one station to know the reasons of the late", choices)
-            late_data.late_train_pct([station])
+            data.station_scheduled_late(choices, lang)
+            late_data.late_train_data(choices, lang)
+            station = st.selectbox(translations[lang]["select_station"], choices)
+            late_data.late_train_pct([station], lang)
     except Exception as e:
-        st.error(f"An error occurred while processing journey data: {str(e)}")
-
-    st.button("\U0001F3E0 Return to home page", on_click=go_to, args=('home',))
+        st.error(translations[lang]["error_processing_data"].format(err=str(e)))
+    st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
 
 def render_subpageB():
-    st.title("\U0001F52E Predictions")
+    st.title(translations[lang]["predictions"])
     if csv is None:
-        st.error("Unable to display predictions because the dataset is not available.")
+        st.error(translations[lang]["dataset_missing"])
         return
-
     try:
-        st.write("Welcome to predictions page !")
-        departure = st.selectbox("Select a departure station", station_list)
-        arrival = st.selectbox("Select an arrival station", asl(csv, [departure]))
+        st.write(translations[lang]["predictions_welcome"])
+        departure = st.selectbox(translations[lang]["select_departure"], station_list)
+        arrival = st.selectbox(translations[lang]["select_arrival"], asl(csv, [departure]))
         predict = pred(csv, [departure], [arrival])
 
         average = predict.moy("Average journey time")
@@ -92,52 +149,51 @@ def render_subpageB():
         r2 = predict.r2("Number of scheduled trains", "Number of trains delayed at departure")
         rmse = predict.rmse("Number of scheduled trains", "Number of trains delayed at departure")
 
-        st.subheader("The predictions are :")
+        st.subheader(translations[lang]["average_travel_time"])
         hours = average // 60
         minutes = average % 60
 
         st.markdown(f"""
-        - The travel time will be approximately <span style='color:#2171b5'><b>{int(hours)} h {int(minutes)} min</b></span> on average.  
-        - There is an average of <span style='color:#2171b5'><b>{int(nb_trains)}</b></span> scheduled trains, 
-        <span style='color:#2171b5'><b>{int(model(nb_trains))}</b></span> (±<span style='color:#2171b5'><b>{int(rmse)}</b></span>) of them are delayed at departure.
+        - {translations[lang]['average_travel_time']} <span style='color:#2171b5'><b>{int(hours)} h {int(minutes)} min</b></span> {translations[lang]['scheduled_trains']},  
+        - <span style='color:#2171b5'><b>{int(nb_trains)}</b></span> {translations[lang]['scheduled_trains']}, 
+        <span style='color:#2171b5'><b>{int(model(nb_trains))}</b></span> (±<span style='color:#2171b5'><b>{int(rmse)}</b></span>) {translations[lang]['delayed_trains']}.
         """, unsafe_allow_html=True)
 
         if -1 < r2 < 1:
-            st.markdown(f"<i>This information is <span style='color:#2171b5'><b>{int(abs(r2) * 100)}%</b></span> accurate</i>", unsafe_allow_html=True)
+            st.markdown(f"<i>{translations[lang]['accuracy_info'].format(pct=int(abs(r2)*100))}</i>", unsafe_allow_html=True)
         else:
-            st.warning("This data may be inaccurate or implausible.")
+            st.warning(translations[lang]["accuracy_warning"])
 
-        ppm(predict.csv, "Number of scheduled trains", "Number of trains delayed at departure")
+        ppm(predict.csv, "Number of scheduled trains", "Number of trains delayed at departure",3 ,lang)  # ta fonction d'origine
+
     except Exception as e:
-        st.error(f"An error occurred while generating predictions: {str(e)}")
+        st.error(translations[lang]["error_generating_predictions"].format(err=str(e)))
 
-    st.button("\U0001F3E0 Return to home page", on_click=go_to, args=('home',))
+    st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
 
 def render_subpageC():
-    st.title("\u2B50 Users' reviews")
-    st.write("Welcome to users' reviews page !")
-    st.button("\U0001F3E0 Return to home page", on_click=go_to, args=('home',))
-    st.write("""<br><br><br><br><br><br><br><br><br><br><br>
-        <h5 style='text-align: center;'>Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre</h5>""", unsafe_allow_html=True)
+    st.title(translations[lang]["users_reviews"])
+    st.write(translations[lang]["users_reviews_welcome"])
+    st.markdown(f"<br><br><br><br><br><br><br><br><br><br><br><h5 style='text-align:center;'>{translations[lang]['credit']}</h5>", unsafe_allow_html=True)
+    st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
 
 def home():
-    st.title("\U0001F3E0 Welcome to home page")
-
+    st.title(translations[lang]["welcome_home"])
     if csv is None:
-        st.warning("The cleaned dataset is not available. Please ensure it is uploaded and correctly formatted.")
+        st.warning(translations[lang]["dataset_missing"])
         return
 
-    st.subheader("Choose the window you want to access")
+    st.subheader(translations[lang]["choose_window"])
     buttons = [
-        ("Journey datas", "pageA"),
-        ("Predictions", "pageB"),
-        ("Users' reviews", "pageC"),
+        (translations[lang]["journey_data"], "pageA"),
+        (translations[lang]["predictions"], "pageB"),
+        (translations[lang]["users_reviews"], "pageC"),
     ]
     cols = st.columns(len(buttons))
     for col, (title, page) in zip(cols, buttons):
         with col:
             st.subheader(title)
-            st.button(f"Access {title}", on_click=go_to, args=(page,))
+            st.button(f"{'Access' if lang == 'en' else 'Accéder à'} {title}", on_click=go_to, args=(page,))
 
 def main():
     if st.session_state.page == 'home':
