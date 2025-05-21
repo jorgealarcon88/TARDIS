@@ -13,7 +13,7 @@ from dataset import plot_poly_model as ppm
 translations = {
     "en": {
         "title": "🚄 Train Dashboard",
-        "journey_data": "⏰ Journey datas",
+        "journey_data": "⏰ Journey data",
         "predictions": "🔮 Predictions",
         "users_reviews": "⭐ Users' reviews",
         "welcome_home": "🏠 Welcome to home page",
@@ -64,18 +64,18 @@ translations = {
         "credit": "Crédit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
     },
      "es": {
-        "title": "🚄 donnéa del traino",
-        "journey_data": "⏰ Donnéa",
-        "predictions": "🔮 Prédicta",
-        "users_reviews": "⭐ utilisators Avio",
-        "welcome_home": "🏠 Bienvenido en la pago de accueil",
+        "title": "🇲🇽 donnéa del traino",
+        "journey_data": "💃 Donnéas",
+        "predictions": "🤠 Prédicta",
+        "users_reviews": "🌯 utilisators Avio",
+        "welcome_home": "🇲🇽 Bienvenido en la pago de accueila",
         "choose_window": "Selectionar la fenêtra para accédar",
         "select_dates": "Sélectionnar los dateos que vos souhaitos consultar",
         "select_stations": "Sélectionnar la o los garos",
         "select_station": "Sélectionnar una uniqua garo para connaîtrar los causeas del retardo",
         "number_station_warning": "Vosotros devos sélectionnar entre 1 y 10 garos",
         "dataset_missing": "Impossiblé d'affichar los donnéos car el de donnéos esta indisponiblé.",
-        "return_home": "🏠 Retoura à la pago de accueil",
+        "return_home": "🇲🇽 Retoura à la pago de accueila",
         "average_travel_time": "El tiempo de trajero esta de environ",
         "scheduled_trains": "traino prévos",
         "delayed_trains": "de entro os sontos en retardé al départo",
@@ -88,7 +88,7 @@ translations = {
         "predictions_welcome": "Bienvenido en la pago des prédiction !",
         "users_reviews_welcome": "Bienvenido en la pago des avido utilisators !",
         "credit": "\"Una rondonta sin fuente se pasa de frente !\"<br>"
-        "Crédito:<br> LOUVELO Roméo<br> LAGUNO Gaëllo<br> LEFEVRO Alexandro",
+        "Crédito:<br> LOUVELO Roméoo<br> LAGUNO Gaëllo<br> LEFEVRO Alexandro",
     }
 }
 
