@@ -59,7 +59,8 @@ translations = {
         "com8": "I'm too good-looking, but let's keep that a secret",
         "com9": "I'm Groot",
         "com10": "I'm very happy to have come up with new business ideas thanks to this trip",
-        "credit": "Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
+        "credit": "\"Why rush when the train's not coming?\"<br>"
+        "Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
         "navigate": "Navigation"
     },
     "fr": {
@@ -110,7 +111,8 @@ translations = {
         "com8": "Je suis tros beau mais il ne faut pas le dire",
         "com9": "Je s'appelle Groot",
         "com10": "Je suis très heureux d'avoir eu de nouvelles idées de business grâce à se trajet",
-        "credit": "Crédit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
+        "credit": "\"Rien ne sert de courir... si on sait que son train est en retard!\"<br>"
+        "Crédit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
         "navigate": "Navigation",
     },
      "es": {
@@ -226,10 +228,10 @@ def render_subpageA():
         if len(choices) > 10 or len(choices) == 0:
             st.warning(translations[lang]["number_station_warning"])
         else:
-            data.station_scheduled_late(choices, lang)
-            late_data.late_train_data(choices, lang)
+            st.pyplot(data.station_scheduled_late(choices, lang))
+            st.pyplot(late_data.late_train_data(choices, lang))
             station = st.selectbox(translations[lang]["select_station"], choices)
-            late_data.late_train_pct([station], lang)
+            st.pyplot(late_data.late_train_pct([station], lang))
     except Exception as e:
         st.error(translations[lang]["error_processing_data"].format(err=str(e)))
     st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
@@ -266,7 +268,7 @@ def render_subpageB():
         else:
             st.warning(translations[lang]["accuracy_warning"])
 
-        ppm(predict.csv, "Number of scheduled trains", "Number of trains delayed at departure",3 ,lang)  # ta fonction d'origine
+        st.pyplot(ppm(predict.csv, "Number of scheduled trains", "Number of trains delayed at departure",3 ,lang))
 
     except Exception as e:
         st.error(translations[lang]["error_generating_predictions"].format(err=str(e)))
@@ -323,7 +325,7 @@ def home():
                 on_click=go_to,
                 args=(page,),
                 use_container_width=True,
-                key=page  # clé unique pour éviter les conflits
+                key=page
             )
             st.markdown("<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True)
 
@@ -331,7 +333,7 @@ def home():
         if lang != 'es':
             st.image("img/carte_france.jpg", caption="Carte du réseau ferré", use_container_width=True)
         else:
-            st.image("img/estelada.png", caption="Carte du réseau ferré", use_container_width=True)
+            st.image("img/estelada.png", caption="drapio de la independancia catalan", use_container_width=True)
 
 
 def main():
