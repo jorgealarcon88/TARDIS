@@ -60,6 +60,7 @@ translations = {
         "com9": "I'm Groot",
         "com10": "I'm very happy to have come up with new business ideas thanks to this trip",
         "credit": "Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
+        "navigate": "Navigation"
     },
     "fr": {
         "title": "🚄 données des trains",
@@ -110,6 +111,7 @@ translations = {
         "com9": "Je s'appelle Groot",
         "com10": "Je suis très heureux d'avoir eu de nouvelles idées de business grâce à se trajet",
         "credit": "Crédit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
+        "navigate": "Navigation",
     },
      "es": {
         "title": "🇲🇽 donnéa del traino",
@@ -148,7 +150,7 @@ translations = {
         "juan": "Juan Pablo",
         "titouan": "Titouan Nguyen-dai",
         "groot": "Grooto",
-        "steve jobs": "Steve Jobs",
+        "steve jobs": "Pablo Escobar",
         "com1": "Muy bien tajecto",
         "com2": "Donde esta Balerina Cappucina ?",
         "com3": "Que calor en el traino",
@@ -161,6 +163,7 @@ translations = {
         "com10": "Beaucoupo des ideas devenidos reales en este trajecto",
         "credit": "\"Una rondonta sin fuente se pasa de frente !\"<br>"
         "Crédito:<br> LOUVELO Roméoo<br> LAGUNO Gaëllo<br> LEFEVRO Alexandro",
+        "navigate": "Navigation",
     }
 }
 
@@ -287,25 +290,49 @@ def render_subpageC():
     })
     st.dataframe(data)
     st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
-    st.markdown(f"<br><br><br><br><br><br><br><br><br><br><br><h5 style='text-align:center;'>{translations[lang]['credit']}</h5>", unsafe_allow_html=True)
+    st.markdown(f"<br><br><br><br><br><br><br><br><br><h5 style='text-align:center;'>{translations[lang]['credit']}</h5>", unsafe_allow_html=True)
+
+import streamlit as st
+
+import streamlit as st
+
+import streamlit as st
 
 def home():
     st.title(translations[lang]["welcome_home"])
+
     if csv is None:
         st.warning(translations[lang]["dataset_missing"])
         return
 
+    st.markdown("---")
     st.subheader(translations[lang]["choose_window"])
-    buttons = [
-        (translations[lang]["journey_data"], "pageA"),
-        (translations[lang]["predictions"], "pageB"),
-        (translations[lang]["users_reviews"], "pageC"),
-    ]
-    cols = st.columns(len(buttons))
-    for col, (title, page) in zip(cols, buttons):
-        with col:
-            st.subheader(title)
-            st.button(f"{'Access' if lang == 'en' else 'Accéder à' if lang == 'fr' else 'Accedar a'} {title}", on_click=go_to, args=(page,))
+
+    col_left, col_right = st.columns([1.5, 1])
+
+    with col_left:
+        buttons = [
+            (f"{translations[lang]['journey_data']}", "pageA"),
+            (f"{translations[lang]['predictions']}", "pageB"),
+            (f"{translations[lang]['users_reviews']}", "pageC"),
+        ]
+
+        for label, page in buttons:
+            st.button(
+                label,
+                on_click=go_to,
+                args=(page,),
+                use_container_width=True,
+                key=page  # clé unique pour éviter les conflits
+            )
+            st.markdown("<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True)
+
+    with col_right:
+        if lang != 'es':
+            st.image("img/carte_france.jpg", caption="Carte du réseau ferré", use_container_width=True)
+        else:
+            st.image("img/estelada.png", caption="Carte du réseau ferré", use_container_width=True)
+
 
 def main():
     if st.session_state.page == 'home':
