@@ -9,7 +9,8 @@ from dataset import LateData as ld
 from dataset import arrival_station_list as asl
 from dataset import plot_poly_model as ppm
 
-# --- Traductions (avec emojis) ---
+# Dictionary containing all the text translations used in the app.
+# Each language key (en, fr, es) includes text keys with their respective translations.
 translations = {
     "en": {
         "title": "🚄 Train Dashboard",
@@ -157,7 +158,7 @@ translations = {
         "com2": "Donde esta Balerina Cappucina ?",
         "com3": "Que calor en el traino",
         "com4": "Perfecto transporto en communo",
-        "com5": "Que se paso ? Olden paso ? No no josé",
+        "com5": "Que se paso ? Olden paso ? No no josé. Que esta pasando ?!!",
         "com6": "Puedo jugar la musica porque soy un DJ",
         "com7": "Ma famme devenido heureusa con esto trajecto. GRACIAS",
         "com8": "Soy perfecto, pero no habla de este",
@@ -169,7 +170,21 @@ translations = {
     }
 }
 
-# --- Chargement dataset ---
+station_list = ["AIX EN PROVENCE TGV", "ANGERS SAINT LAUD", "ANGOULEME", "ANNECY", "ARRAS", "AVIGNON TGV", "BARCELONA",
+                "BELLEGARDE (AIN)", "BESANCON FRANCHE COMTE TGV", "BORDEAUX ST JEAN", "BREST", "CHAMBERY CHALLES LES EAUX",
+                "DIJON VILLE", "DOUAI", "DUNKERQUE", "FRANCFORT", "GENEVE", "GRENOBLE", "ITALIE", "LA ROCHELLE VILLE",
+                "LAUSANNE", "LAVAL", "LE CREUSOT MONTCEAU MONTCHANIN", "LE MANS", "LILLE", "LYON PART DIEU", "MACON LOCHE",
+                "MADRID", "MARNE LA VALLEE", "MARSEILLE ST CHARLES", "METZ", "MONTPELLIER", "MULHOUSE VILLE", "NANCY",
+                "NANTES", "NICE VILLE", "NIMES", "PARIS EST", "PARIS LYON", "PARIS MONTPARNASSE", "PARIS NORD",
+                "PARIS VAUGIRARD", "PERPIGNAN", "POITIERS", "QUIMPER", "REIMS", "RENNES", "SAINT ETIENNE CHATEAUCREUX",
+                "ST MALO", "ST PIERRE DES CORPS", "STRASBOURG", "STUTTGART", "TOULON", "TOULOUSE MATABIAU", "TOURCOING",
+                "TOURS", "VALENCE ALIXAN TGV", "VANNES", "ZURICH"]
+
+date_list = ["2018-01", "2018-12", "2019-01", "2019-12", "2020-01", "2020-12", "2021-01", "2021-12", "2022-01",
+             "2022-12", "2023-01", "2023-12", "2024-01", "2024-12"]
+
+# Attempts to load the cleaned CSV dataset from disk.
+# Handles multiple cases: missing file, empty file, parsing errors, or unexpected exceptions.
 file_path = Path("cleaned_dataset.csv")
 try:
     if file_path.exists() and file_path.stat().st_size > 0:
@@ -187,55 +202,51 @@ except Exception as e:
     csv = None
     st.error(f"An unexpected error occurred while loading the dataset: {str(e)}")
 
-# --- Config page ---
+# Set page title, icon, and layout for the Streamlit app.
 st.set_page_config(page_title="Train Dashboard", page_icon="🚄", layout="wide")  # <-- layout wide pour responsive
 
-# --- Langue ---
+# Sidebar dropdown for selecting the interface language.
 lang = st.sidebar.selectbox("Select Language / Choisir la langue", options=["en", "fr", "es"], index=1)
 
-# --- Navigation ---
+# Use session state to track which subpage the user is currently viewing.
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
+# Function to change pages.
 def go_to(page_name):
     st.session_state.page = page_name
 
-station_list = ["AIX EN PROVENCE TGV", "ANGERS SAINT LAUD", "ANGOULEME", "ANNECY", "ARRAS", "AVIGNON TGV", "BARCELONA",
-                "BELLEGARDE (AIN)", "BESANCON FRANCHE COMTE TGV", "BORDEAUX ST JEAN", "BREST", "CHAMBERY CHALLES LES EAUX",
-                "DIJON VILLE", "DOUAI", "DUNKERQUE", "FRANCFORT", "GENEVE", "GRENOBLE", "ITALIE", "LA ROCHELLE VILLE",
-                "LAUSANNE", "LAVAL", "LE CREUSOT MONTCEAU MONTCHANIN", "LE MANS", "LILLE", "LYON PART DIEU", "MACON LOCHE",
-                "MADRID", "MARNE LA VALLEE", "MARSEILLE ST CHARLES", "METZ", "MONTPELLIER", "MULHOUSE VILLE", "NANCY",
-                "NANTES", "NICE VILLE", "NIMES", "PARIS EST", "PARIS LYON", "PARIS MONTPARNASSE", "PARIS NORD",
-                "PARIS VAUGIRARD", "PERPIGNAN", "POITIERS", "QUIMPER", "REIMS", "RENNES", "SAINT ETIENNE CHATEAUCREUX",
-                "ST MALO", "ST PIERRE DES CORPS", "STRASBOURG", "STUTTGART", "TOULON", "TOULOUSE MATABIAU", "TOURCOING",
-                "TOURS", "VALENCE ALIXAN TGV", "VANNES", "ZURICH"]
-
-date_list = ["2018-01", "2018-12", "2019-01", "2019-12", "2020-01", "2020-12", "2021-01", "2021-12", "2022-01",
-             "2022-12", "2023-01", "2023-12", "2024-01", "2024-12"]
-
+# Displays train delay charts and statistics for selected stations and dates.
 def render_subpageA():
     st.title(translations[lang]["journey_data"])
     if csv is None:
         st.error(translations[lang]["dataset_missing"])
         return
+
+    # Date selection slider
     start_date, end_date = st.select_slider(translations[lang]["select_dates"], options=date_list, value=("2018-01", "2024-12"))
+    # Station selection
     choices = st.multiselect(translations[lang]["select_stations"], station_list)
     dates = [start_date, end_date]
     try:
+        # Prepare transformed data for plotting
         data = sdt(csv, dates)
         late_data = ld(csv, dates)
 
         if len(choices) > 10 or len(choices) == 0:
             st.warning(translations[lang]["number_station_warning"])
         else:
+            # Display plots
             st.pyplot(data.station_scheduled_late(choices, lang))
             st.pyplot(late_data.late_train_data(choices, lang))
+            # If exactly one station is selected, show causes of delays
             station = st.selectbox(translations[lang]["select_station"], choices)
             st.pyplot(late_data.late_train_pct([station], lang))
     except Exception as e:
         st.error(translations[lang]["error_processing_data"].format(err=str(e)))
     st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
 
+# Provides predictions about train delays based on departure and arrival stations.
 def render_subpageB():
     st.title(translations[lang]["predictions"])
     if csv is None:
@@ -253,6 +264,7 @@ def render_subpageB():
         r2 = predict.r2("Number of scheduled trains", "Number of trains delayed at departure")
         rmse = predict.rmse("Number of scheduled trains", "Number of trains delayed at departure")
 
+        # Display prediction statistics
         st.subheader(translations[lang]["average_travel_time"])
         hours = average // 60
         minutes = average % 60
@@ -263,21 +275,26 @@ def render_subpageB():
         <span style='color:#2171b5'><b>{int(model(nb_trains))}</b></span> (±<span style='color:#2171b5'><b>{int(rmse)}</b></span>) {translations[lang]['delayed_trains']}.
         """, unsafe_allow_html=True)
 
+        # Show model accuracy if within valid range
         if -1 < r2 < 1:
             st.markdown(f"<i>{translations[lang]['accuracy_info'].format(pct=int(abs(r2)*100))}</i>", unsafe_allow_html=True)
         else:
             st.warning(translations[lang]["accuracy_warning"])
 
+        # Plot the model selected before
         st.pyplot(ppm(predict.csv, "Number of scheduled trains", "Number of trains delayed at departure",3 ,lang))
 
     except Exception as e:
         st.error(translations[lang]["error_generating_predictions"].format(err=str(e)))
 
+    # Return button
     st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
 
+# Displays user feedback in a table format before/after SNCP improvement.
 def render_subpageC():
     st.title(translations[lang]["users_reviews"])
     st.write(translations[lang]["users_reviews_welcome"])
+    # Create a board with personalized datas
     data = pd.DataFrame({
         translations[lang]["col1"]: [translations[lang]["noé"], translations[lang]["lucas"], translations[lang]["marc"],
                 translations[lang]["pavel"], translations[lang]["ugo"], translations[lang]["nolhan"],
@@ -290,16 +307,13 @@ def render_subpageC():
                 translations[lang]["com7"], translations[lang]["com8"], translations[lang]["com9"],
                 translations[lang]["com10"]]
     })
+
+    # Print
     st.dataframe(data)
     st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
     st.markdown(f"<br><br><br><br><br><br><br><br><br><h5 style='text-align:center;'>{translations[lang]['credit']}</h5>", unsafe_allow_html=True)
 
-import streamlit as st
-
-import streamlit as st
-
-import streamlit as st
-
+# Welcome screen of the application. Allows navigation to other sections.
 def home():
     st.title(translations[lang]["welcome_home"])
 
@@ -312,6 +326,7 @@ def home():
 
     col_left, col_right = st.columns([1.5, 1])
 
+    # Display the buttons to go to the others pages
     with col_left:
         buttons = [
             (f"{translations[lang]['journey_data']}", "pageA"),
@@ -329,13 +344,14 @@ def home():
             )
             st.markdown("<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True)
 
+    # Display image
     with col_right:
         if lang != 'es':
             st.image("img/carte_france.jpg", caption="Carte du réseau ferré", use_container_width=True)
         else:
             st.image("img/estelada.png", caption="drapio de la independancia catalan", use_container_width=True)
 
-
+# Main to select wich function execute
 def main():
     if st.session_state.page == 'home':
         home()
