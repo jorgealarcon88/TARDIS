@@ -189,6 +189,9 @@ station_list = ["AIX EN PROVENCE TGV", "ANGERS SAINT LAUD", "ANGOULEME", "ANNECY
 date_list = ["2018-01", "2018-12", "2019-01", "2019-12", "2020-01", "2020-12", "2021-01", "2021-12", "2022-01",
              "2022-12", "2023-01", "2023-12", "2024-01", "2024-12"]
 
+# Set page title, icon, and layout for the Streamlit app.
+st.set_page_config(page_title="Train Dashboard", page_icon="🚄", layout="wide")  # <-- layout wide pour responsive
+
 # Attempts to load the cleaned CSV dataset from disk.
 # Handles multiple cases: missing file, empty file, parsing errors, or unexpected exceptions.
 file_path = Path("cleaned_dataset.csv")
@@ -208,8 +211,6 @@ except Exception as e:
     csv = None
     st.error(f"An unexpected error occurred while loading the dataset: {str(e)}")
 
-# Set page title, icon, and layout for the Streamlit app.
-st.set_page_config(page_title="Train Dashboard", page_icon="🚄", layout="wide")  # <-- layout wide pour responsive
 
 # Sidebar dropdown for selecting the interface language.
 lang = st.sidebar.selectbox("Select Language / Choisir la langue", options=["en", "fr", "es"], index=1)
