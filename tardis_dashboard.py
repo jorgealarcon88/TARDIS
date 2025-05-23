@@ -306,16 +306,35 @@ def render_subpageC():
                 translations[lang]["pavel"], translations[lang]["ugo"], translations[lang]["nolhan"],
                 translations[lang]["juan"], translations[lang]["titouan"], translations[lang]["groot"],
                 translations[lang]["steve jobs"]],
-        translations[lang]["col2"]: ["3⭐", "1⭐", "4⭐", "1⭐", "2⭐", "1⭐", "0⭐", "1⭐", "4⭐", "2⭐"],
-        translations[lang]["col3"]: ["5⭐", "5⭐", "5⭐", "5⭐", "5⭐", "5⭐", "5⭐", "5⭐", "5⭐", "5⭐"],
+        translations[lang]["col2"]: ["⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3), "⭐"  * random.randint(1, 3),
+                                    "⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3),
+                                    "⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3)],
+        translations[lang]["col3"]: ["⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5],
         translations[lang]["col4"]: [translations[lang]["com1"], translations[lang]["com2"], translations[lang]["com3"],
                 translations[lang]["com4"], translations[lang]["com5"], translations[lang]["com6"],
                 translations[lang]["com7"], translations[lang]["com8"], translations[lang]["com9"],
                 translations[lang]["com10"]]
     })
 
+    dataes = pd.DataFrame({
+        translations[lang]["col1"]: [translations[lang]["noé"], translations[lang]["lucas"], translations[lang]["marc"],
+                translations[lang]["pavel"], translations[lang]["ugo"], translations[lang]["nolhan"],
+                translations[lang]["juan"], translations[lang]["titouan"], translations[lang]["groot"],
+                translations[lang]["steve jobs"]],
+        translations[lang]["col2"]: ["🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3), "🫒"  * random.randint(1, 3),
+                                    "🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3),
+                                    "🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3)],
+        translations[lang]["col3"]: ["🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5],
+        translations[lang]["col4"]: [translations[lang]["com1"], translations[lang]["com2"], translations[lang]["com3"],
+                translations[lang]["com4"], translations[lang]["com5"], translations[lang]["com6"],
+                translations[lang]["com7"], translations[lang]["com8"], translations[lang]["com9"],
+                translations[lang]["com10"]]
+    })
     # Print
-    st.dataframe(data)
+    if lang != 'es':
+        st.dataframe(data)
+    else:
+        st.dataframe(dataes)
     st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
     st.markdown(f"<br><br><br><br><br><br><br><br><br><h5 style='text-align:center;'>{translations[lang]['credit']}</h5>", unsafe_allow_html=True)
 
