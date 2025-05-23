@@ -261,19 +261,12 @@ st.set_page_config(page_title="Train Dashboard", page_icon="🚄", layout="wide"
 # Attempts to load the cleaned CSV dataset from disk.
 # Handles multiple cases: missing file, empty file, parsing errors, or unexpected exceptions.
 file_path = Path("cleaned_dataset.csv")
+
 try:
     if file_path.exists() and file_path.stat().st_size > 0:
         csv = pd.read_csv(file_path)
-    elif file_path.exists() and file_path.stat().st_size == 0:
-        csv = None
-        st.error(
-            "The dataset is empty. Please check the contents of 'cleaned_dataset.csv'."
-        )
     else:
         csv = None
-        st.warning(
-            "The cleaned dataset could not be found. Please make sure the file 'cleaned_dataset.csv' exists."
-        )
 except pd.errors.ParserError:
     csv = None
     st.error(
