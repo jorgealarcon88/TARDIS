@@ -10,7 +10,7 @@ from dataset import LateData as ld
 from dataset import arrival_station_list as asl
 from dataset import plot_poly_model as ppm
 
-#pct chance to get drapeo on es main page
+# pct chance to get drapeo on es main page
 
 pctdrapeo = 10
 
@@ -66,9 +66,9 @@ translations = {
         "com8": "I'm too good-looking, but let's keep that a secret",
         "com9": "I'm Groot",
         "com10": "I'm very happy to have come up with new business ideas thanks to this trip",
-        "credit": "\"Why rush when the train's not coming?\"<br>"
+        "credit": '"Why rush when the train\'s not coming?"<br>'
         "Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
-        "navigate": "Navigation"
+        "navigate": "Navigation",
     },
     "fr": {
         "title": "🚄 données des trains",
@@ -118,11 +118,11 @@ translations = {
         "com8": "Je suis tros beau mais il ne faut pas le dire",
         "com9": "Je s'appelle Groot",
         "com10": "Je suis très heureux d'avoir eu de nouvelles idées de business grâce à se trajet",
-        "credit": "\"Rien ne sert de courir... si on sait que son train est en retard!\"<br>"
+        "credit": '"Rien ne sert de courir... si on sait que son train est en retard!"<br>'
         "Crédit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
         "navigate": "Navigation",
     },
-     "es": {
+    "es": {
         "title": "🇲🇽 donnéa del traino",
         "journey_data": "💃 Donnéas",
         "predictions": "🤠 Prédicta",
@@ -170,24 +170,90 @@ translations = {
         "com8": "Soy perfecto, pero no habla de este",
         "com9": "Soy Groot",
         "com10": "Beaucoupo des ideas devenidos reales en este trajecto",
-        "credit": "\"Una rondonta sin fuente se pasa de frente !\"<br>"
+        "credit": '"Una rondonta sin fuente se pasa de frente !"<br>'
         "Crédito:<br> LOUVELO Roméoo<br> LAGUNO Gaëllo<br> LEFEVRO Alexandro",
         "navigate": "Navigation",
-    }
+    },
 }
 
-station_list = ["AIX EN PROVENCE TGV", "ANGERS SAINT LAUD", "ANGOULEME", "ANNECY", "ARRAS", "AVIGNON TGV", "BARCELONA",
-                "BELLEGARDE (AIN)", "BESANCON FRANCHE COMTE TGV", "BORDEAUX ST JEAN", "BREST", "CHAMBERY CHALLES LES EAUX",
-                "DIJON VILLE", "DOUAI", "DUNKERQUE", "FRANCFORT", "GENEVE", "GRENOBLE", "ITALIE", "LA ROCHELLE VILLE",
-                "LAUSANNE", "LAVAL", "LE CREUSOT MONTCEAU MONTCHANIN", "LE MANS", "LILLE", "LYON PART DIEU", "MACON LOCHE",
-                "MADRID", "MARNE LA VALLEE", "MARSEILLE ST CHARLES", "METZ", "MONTPELLIER", "MULHOUSE VILLE", "NANCY",
-                "NANTES", "NICE VILLE", "NIMES", "PARIS EST", "PARIS LYON", "PARIS MONTPARNASSE", "PARIS NORD",
-                "PARIS VAUGIRARD", "PERPIGNAN", "POITIERS", "QUIMPER", "REIMS", "RENNES", "SAINT ETIENNE CHATEAUCREUX",
-                "ST MALO", "ST PIERRE DES CORPS", "STRASBOURG", "STUTTGART", "TOULON", "TOULOUSE MATABIAU", "TOURCOING",
-                "TOURS", "VALENCE ALIXAN TGV", "VANNES", "ZURICH"]
+station_list = [
+    "AIX EN PROVENCE TGV",
+    "ANGERS SAINT LAUD",
+    "ANGOULEME",
+    "ANNECY",
+    "ARRAS",
+    "AVIGNON TGV",
+    "BARCELONA",
+    "BELLEGARDE (AIN)",
+    "BESANCON FRANCHE COMTE TGV",
+    "BORDEAUX ST JEAN",
+    "BREST",
+    "CHAMBERY CHALLES LES EAUX",
+    "DIJON VILLE",
+    "DOUAI",
+    "DUNKERQUE",
+    "FRANCFORT",
+    "GENEVE",
+    "GRENOBLE",
+    "ITALIE",
+    "LA ROCHELLE VILLE",
+    "LAUSANNE",
+    "LAVAL",
+    "LE CREUSOT MONTCEAU MONTCHANIN",
+    "LE MANS",
+    "LILLE",
+    "LYON PART DIEU",
+    "MACON LOCHE",
+    "MADRID",
+    "MARNE LA VALLEE",
+    "MARSEILLE ST CHARLES",
+    "METZ",
+    "MONTPELLIER",
+    "MULHOUSE VILLE",
+    "NANCY",
+    "NANTES",
+    "NICE VILLE",
+    "NIMES",
+    "PARIS EST",
+    "PARIS LYON",
+    "PARIS MONTPARNASSE",
+    "PARIS NORD",
+    "PARIS VAUGIRARD",
+    "PERPIGNAN",
+    "POITIERS",
+    "QUIMPER",
+    "REIMS",
+    "RENNES",
+    "SAINT ETIENNE CHATEAUCREUX",
+    "ST MALO",
+    "ST PIERRE DES CORPS",
+    "STRASBOURG",
+    "STUTTGART",
+    "TOULON",
+    "TOULOUSE MATABIAU",
+    "TOURCOING",
+    "TOURS",
+    "VALENCE ALIXAN TGV",
+    "VANNES",
+    "ZURICH",
+]
 
-date_list = ["2018-01", "2018-12", "2019-01", "2019-12", "2020-01", "2020-12", "2021-01", "2021-12", "2022-01",
-             "2022-12", "2023-01", "2023-12", "2024-01", "2024-12"]
+date_list = [
+    "2018-01",
+    "2018-12",
+    "2019-01",
+    "2019-12",
+    "2020-01",
+    "2020-12",
+    "2021-01",
+    "2021-12",
+    "2022-01",
+    "2022-12",
+    "2023-01",
+    "2023-12",
+    "2024-01",
+    "2024-12",
+]
 
 # Attempts to load the cleaned CSV dataset from disk.
 # Handles multiple cases: missing file, empty file, parsing errors, or unexpected exceptions.
@@ -197,30 +263,42 @@ try:
         csv = pd.read_csv(file_path)
     elif file_path.exists() and file_path.stat().st_size == 0:
         csv = None
-        st.error("The dataset is empty. Please check the contents of 'cleaned_dataset.csv'.")
+        st.error(
+            "The dataset is empty. Please check the contents of 'cleaned_dataset.csv'."
+        )
     else:
         csv = None
-        st.warning("The cleaned dataset could not be found. Please make sure the file 'cleaned_dataset.csv' exists.")
+        st.warning(
+            "The cleaned dataset could not be found. Please make sure the file 'cleaned_dataset.csv' exists."
+        )
 except pd.errors.ParserError:
     csv = None
-    st.error("There was an error parsing the dataset. Please ensure 'cleaned_dataset.csv' is correctly formatted.")
+    st.error(
+        "There was an error parsing the dataset. Please ensure 'cleaned_dataset.csv' is correctly formatted."
+    )
 except Exception as e:
     csv = None
     st.error(f"An unexpected error occurred while loading the dataset: {str(e)}")
 
 # Set page title, icon, and layout for the Streamlit app.
-st.set_page_config(page_title="Train Dashboard", page_icon="🚄", layout="wide")  # <-- layout wide pour responsive
+st.set_page_config(
+    page_title="Train Dashboard", page_icon="🚄", layout="wide"
+)  # <-- layout wide pour responsive
 
 # Sidebar dropdown for selecting the interface language.
-lang = st.sidebar.selectbox("Select Language / Choisir la langue", options=["en", "fr", "es"], index=1)
+lang = st.sidebar.selectbox(
+    "Select Language / Choisir la langue", options=["en", "fr", "es"], index=1
+)
 
 # Use session state to track which subpage the user is currently viewing.
-if 'page' not in st.session_state:
-    st.session_state.page = 'home'
+if "page" not in st.session_state:
+    st.session_state.page = "home"
+
 
 # Function to change pages.
 def go_to(page_name):
     st.session_state.page = page_name
+
 
 # Displays train delay charts and statistics for selected stations and dates.
 def render_subpageA():
@@ -230,7 +308,11 @@ def render_subpageA():
         return
 
     # Date selection slider
-    start_date, end_date = st.select_slider(translations[lang]["select_dates"], options=date_list, value=("2018-01", "2024-12"))
+    start_date, end_date = st.select_slider(
+        translations[lang]["select_dates"],
+        options=date_list,
+        value=("2018-01", "2024-12"),
+    )
     # Station selection
     choices = st.multiselect(translations[lang]["select_stations"], station_list)
     dates = [start_date, end_date]
@@ -250,7 +332,8 @@ def render_subpageA():
             st.pyplot(late_data.late_train_pct([station], lang))
     except Exception as e:
         st.error(translations[lang]["error_processing_data"].format(err=str(e)))
-    st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
+    st.button(translations[lang]["return_home"], on_click=go_to, args=("home",))
+
 
 # Provides predictions about train delays based on departure and arrival stations.
 def render_subpageB():
@@ -261,82 +344,185 @@ def render_subpageB():
     try:
         st.write(translations[lang]["predictions_welcome"])
         departure = st.selectbox(translations[lang]["select_departure"], station_list)
-        arrival = st.selectbox(translations[lang]["select_arrival"], asl(csv, [departure]))
+        arrival = st.selectbox(
+            translations[lang]["select_arrival"], asl(csv, [departure])
+        )
         predict = pred(csv, [departure], [arrival])
 
         average = predict.moy("Average journey time")
         nb_trains = predict.moy("Number of scheduled trains")
-        model = predict.model("Number of scheduled trains", "Number of trains delayed at departure")
-        r2 = predict.r2("Number of scheduled trains", "Number of trains delayed at departure")
-        rmse = predict.rmse("Number of scheduled trains", "Number of trains delayed at departure")
+        model = predict.model(
+            "Number of scheduled trains", "Number of trains delayed at departure"
+        )
+        r2 = predict.r2(
+            "Number of scheduled trains", "Number of trains delayed at departure"
+        )
+        rmse = predict.rmse(
+            "Number of scheduled trains", "Number of trains delayed at departure"
+        )
 
         # Display prediction statistics
         st.subheader(translations[lang]["average_travel_time"])
         hours = average // 60
         minutes = average % 60
 
-        st.markdown(f"""
-        - {translations[lang]['average_travel_time']} <span style='color:#2171b5'><b>{int(hours)} h {int(minutes)} min</b></span> {translations[lang]['scheduled_trains']},  
-        - <span style='color:#2171b5'><b>{int(nb_trains)}</b></span> {translations[lang]['scheduled_trains']}, 
-        <span style='color:#2171b5'><b>{int(model(nb_trains))}</b></span> (±<span style='color:#2171b5'><b>{int(rmse)}</b></span>) {translations[lang]['delayed_trains']}.
-        """, unsafe_allow_html=True)
+        st.markdown(
+            f"""
+        - {translations[lang]["average_travel_time"]} <span style='color:#2171b5'><b>{int(hours)} h {int(minutes)} min</b></span> {translations[lang]["scheduled_trains"]},  
+        - <span style='color:#2171b5'><b>{int(nb_trains)}</b></span> {translations[lang]["scheduled_trains"]}, 
+        <span style='color:#2171b5'><b>{int(model(nb_trains))}</b></span> (±<span style='color:#2171b5'><b>{int(rmse)}</b></span>) {translations[lang]["delayed_trains"]}.
+        """,
+            unsafe_allow_html=True,
+        )
 
         # Show model accuracy if within valid range
         if -1 < r2 < 1:
-            st.markdown(f"<i>{translations[lang]['accuracy_info'].format(pct=int(abs(r2)*100))}</i>", unsafe_allow_html=True)
+            st.markdown(
+                f"<i>{translations[lang]['accuracy_info'].format(pct=int(abs(r2) * 100))}</i>",
+                unsafe_allow_html=True,
+            )
         else:
             st.warning(translations[lang]["accuracy_warning"])
 
         # Plot the model selected before
-        st.pyplot(ppm(predict.csv, "Number of scheduled trains", "Number of trains delayed at departure",3 ,lang))
+        st.pyplot(
+            ppm(
+                predict.csv,
+                "Number of scheduled trains",
+                "Number of trains delayed at departure",
+                3,
+                lang,
+            )
+        )
 
     except Exception as e:
         st.error(translations[lang]["error_generating_predictions"].format(err=str(e)))
 
     # Return button
-    st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
+    st.button(translations[lang]["return_home"], on_click=go_to, args=("home",))
+
 
 # Displays user feedback in a table format before/after SNCP improvement.
 def render_subpageC():
     st.title(translations[lang]["users_reviews"])
     st.write(translations[lang]["users_reviews_welcome"])
     # Create a board with personalized datas
-    data = pd.DataFrame({
-        translations[lang]["col1"]: [translations[lang]["noé"], translations[lang]["lucas"], translations[lang]["marc"],
-                translations[lang]["pavel"], translations[lang]["ugo"], translations[lang]["nolhan"],
-                translations[lang]["juan"], translations[lang]["titouan"], translations[lang]["groot"],
-                translations[lang]["steve jobs"]],
-        translations[lang]["col2"]: ["⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3), "⭐"  * random.randint(1, 3),
-                                    "⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3),
-                                    "⭐" * random.randint(1, 3), "⭐" * random.randint(1, 3)],
-        translations[lang]["col3"]: ["⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5, "⭐" * 5],
-        translations[lang]["col4"]: [translations[lang]["com1"], translations[lang]["com2"], translations[lang]["com3"],
-                translations[lang]["com4"], translations[lang]["com5"], translations[lang]["com6"],
-                translations[lang]["com7"], translations[lang]["com8"], translations[lang]["com9"],
-                translations[lang]["com10"]]
-    })
+    data = pd.DataFrame(
+        {
+            translations[lang]["col1"]: [
+                translations[lang]["noé"],
+                translations[lang]["lucas"],
+                translations[lang]["marc"],
+                translations[lang]["pavel"],
+                translations[lang]["ugo"],
+                translations[lang]["nolhan"],
+                translations[lang]["juan"],
+                translations[lang]["titouan"],
+                translations[lang]["groot"],
+                translations[lang]["steve jobs"],
+            ],
+            translations[lang]["col2"]: [
+                "⭐" * random.randint(1, 3),
+                "⭐" * random.randint(1, 3),
+                "⭐" * random.randint(1, 3),
+                "⭐" * random.randint(1, 3),
+                "⭐" * random.randint(1, 3),
+                "⭐" * random.randint(1, 3),
+                "⭐" * random.randint(1, 3),
+                "⭐" * random.randint(1, 3),
+                "⭐" * random.randint(1, 3),
+                "⭐" * random.randint(1, 3),
+            ],
+            translations[lang]["col3"]: [
+                "⭐" * 5,
+                "⭐" * 5,
+                "⭐" * 5,
+                "⭐" * 5,
+                "⭐" * 5,
+                "⭐" * 5,
+                "⭐" * 5,
+                "⭐" * 5,
+                "⭐" * 5,
+                "⭐" * 5,
+            ],
+            translations[lang]["col4"]: [
+                translations[lang]["com1"],
+                translations[lang]["com2"],
+                translations[lang]["com3"],
+                translations[lang]["com4"],
+                translations[lang]["com5"],
+                translations[lang]["com6"],
+                translations[lang]["com7"],
+                translations[lang]["com8"],
+                translations[lang]["com9"],
+                translations[lang]["com10"],
+            ],
+        }
+    )
 
-    dataes = pd.DataFrame({
-        translations[lang]["col1"]: [translations[lang]["noé"], translations[lang]["lucas"], translations[lang]["marc"],
-                translations[lang]["pavel"], translations[lang]["ugo"], translations[lang]["nolhan"],
-                translations[lang]["juan"], translations[lang]["titouan"], translations[lang]["groot"],
-                translations[lang]["steve jobs"]],
-        translations[lang]["col2"]: ["🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3), "🫒"  * random.randint(1, 3),
-                                    "🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3),
-                                    "🫒" * random.randint(1, 3), "🫒" * random.randint(1, 3)],
-        translations[lang]["col3"]: ["🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5, "🫒" * 5],
-        translations[lang]["col4"]: [translations[lang]["com1"], translations[lang]["com2"], translations[lang]["com3"],
-                translations[lang]["com4"], translations[lang]["com5"], translations[lang]["com6"],
-                translations[lang]["com7"], translations[lang]["com8"], translations[lang]["com9"],
-                translations[lang]["com10"]]
-    })
+    dataes = pd.DataFrame(
+        {
+            translations[lang]["col1"]: [
+                translations[lang]["noé"],
+                translations[lang]["lucas"],
+                translations[lang]["marc"],
+                translations[lang]["pavel"],
+                translations[lang]["ugo"],
+                translations[lang]["nolhan"],
+                translations[lang]["juan"],
+                translations[lang]["titouan"],
+                translations[lang]["groot"],
+                translations[lang]["steve jobs"],
+            ],
+            translations[lang]["col2"]: [
+                "🫒" * random.randint(1, 3),
+                "🫒" * random.randint(1, 3),
+                "🫒" * random.randint(1, 3),
+                "🫒" * random.randint(1, 3),
+                "🫒" * random.randint(1, 3),
+                "🫒" * random.randint(1, 3),
+                "🫒" * random.randint(1, 3),
+                "🫒" * random.randint(1, 3),
+                "🫒" * random.randint(1, 3),
+                "🫒" * random.randint(1, 3),
+            ],
+            translations[lang]["col3"]: [
+                "🫒" * 5,
+                "🫒" * 5,
+                "🫒" * 5,
+                "🫒" * 5,
+                "🫒" * 5,
+                "🫒" * 5,
+                "🫒" * 5,
+                "🫒" * 5,
+                "🫒" * 5,
+                "🫒" * 5,
+            ],
+            translations[lang]["col4"]: [
+                translations[lang]["com1"],
+                translations[lang]["com2"],
+                translations[lang]["com3"],
+                translations[lang]["com4"],
+                translations[lang]["com5"],
+                translations[lang]["com6"],
+                translations[lang]["com7"],
+                translations[lang]["com8"],
+                translations[lang]["com9"],
+                translations[lang]["com10"],
+            ],
+        }
+    )
     # Print
-    if lang != 'es':
+    if lang != "es":
         st.dataframe(data)
     else:
         st.dataframe(dataes)
-    st.button(translations[lang]["return_home"], on_click=go_to, args=('home',))
-    st.markdown(f"<br><br><br><br><br><br><br><br><br><h5 style='text-align:center;'>{translations[lang]['credit']}</h5>", unsafe_allow_html=True)
+    st.button(translations[lang]["return_home"], on_click=go_to, args=("home",))
+    st.markdown(
+        f"<br><br><br><br><br><br><br><br><br><h5 style='text-align:center;'>{translations[lang]['credit']}</h5>",
+        unsafe_allow_html=True,
+    )
+
 
 # Welcome screen of the application. Allows navigation to other sections.
 def home():
@@ -361,33 +547,37 @@ def home():
 
         for label, page in buttons:
             st.button(
-                label,
-                on_click=go_to,
-                args=(page,),
-                use_container_width=True,
-                key=page
+                label, on_click=go_to, args=(page,), use_container_width=True, key=page
             )
-            st.markdown("<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True)
+            st.markdown(
+                "<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True
+            )
 
     # Display image
     with col_right:
-        if lang != 'es':
-            st.image("img/carte_france.jpg", caption="Carte du réseau ferré", use_container_width=True)
+        if lang != "es":
+            st.image(
+                "img/carte_france.jpg",
+                caption="Carte du réseau ferré",
+                use_container_width=True,
+            )
         else:
             if random.random() < (pctdrapeo / 100):
                 st.image("img/estelada.png", caption="drapeo", use_container_width=True)
             else:
                 st.image("img/paella.webp", caption="paello", use_container_width=True)
 
+
 # Main to select wich function execute
 def main():
-    if st.session_state.page == 'home':
+    if st.session_state.page == "home":
         home()
-    elif st.session_state.page == 'pageA':
+    elif st.session_state.page == "pageA":
         render_subpageA()
-    elif st.session_state.page == 'pageB':
+    elif st.session_state.page == "pageB":
         render_subpageB()
-    elif st.session_state.page == 'pageC':
+    elif st.session_state.page == "pageC":
         render_subpageC()
+
 
 main()
