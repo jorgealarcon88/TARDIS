@@ -2,6 +2,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import random
 from pathlib import Path
 from dataset import StationData as sdt
 from dataset import Predict as pred
@@ -9,8 +10,13 @@ from dataset import LateData as ld
 from dataset import arrival_station_list as asl
 from dataset import plot_poly_model as ppm
 
+#pct chance to get drapeo on es main page
+
+pctdrapeo = 10
+
 # Dictionary containing all the text translations used in the app.
 # Each language key (en, fr, es) includes text keys with their respective translations.
+
 translations = {
     "en": {
         "title": "🚄 Train Dashboard",
@@ -349,7 +355,10 @@ def home():
         if lang != 'es':
             st.image("img/carte_france.jpg", caption="Carte du réseau ferré", use_container_width=True)
         else:
-            st.image("img/estelada.png", caption="drapio de la independancia catalan", use_container_width=True)
+            if random.random() < (pctdrapeo / 100):
+                st.image("img/estelada.png", caption="drapeo", use_container_width=True)
+            else:
+                st.image("img/paella.webp", caption="paello", use_container_width=True)
 
 # Main to select wich function execute
 def main():
