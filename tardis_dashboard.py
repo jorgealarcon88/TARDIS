@@ -359,7 +359,7 @@ def render_subpageB():
 
         st.markdown(
             f"""
-        - {translations[lang]["average_travel_time"]} <span style='color:#2171b5'><b>{int(hours)} h {int(minutes)} min</b></span> {translations[lang]["scheduled_trains"]},  
+        - {translations[lang]["average_travel_time"]} <span style='color:#2171b5'><b>{int(hours)} h {int(minutes)} min</b></span>.
         - <span style='color:#2171b5'><b>{int(nb_trains)}</b></span> {translations[lang]["scheduled_trains"]}, 
         <span style='color:#2171b5'><b>{int(model(nb_trains))}</b></span> (±<span style='color:#2171b5'><b>{int(rmse)}</b></span>) {translations[lang]["delayed_trains"]}.
         """,
