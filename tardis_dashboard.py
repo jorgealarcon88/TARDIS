@@ -9,6 +9,7 @@ from dataset import Predict as pred
 from dataset import LateData as ld
 from dataset import arrival_station_list as asl
 from dataset import plot_poly_model as ppm
+from planner import planner_page as pp
 
 # pct chance to get drapeo on es main page
 
@@ -69,6 +70,7 @@ translations = {
         "credit": '"Why rush when the train\'s not coming?"<br>'
         "Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
         "navigate": "Navigation",
+        "planner_page": "✈️ Activity Planner"
     },
     "fr": {
         "title": "🚄 données des trains",
@@ -121,6 +123,7 @@ translations = {
         "credit": '"Rien ne sert de courir... si on sait que son train est en retard!"<br>'
         "Crédit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
         "navigate": "Navigation",
+        "planner_page": "✈️ Planificateur d'activités"
     },
     "es": {
         "title": "🇲🇽 donnéa del traino",
@@ -173,6 +176,7 @@ translations = {
         "credit": '"Una rondonta sin fuente se pasa de frente !"<br>'
         "Crédito:<br> LOUVELO Roméoo<br> LAGUNO Gaëllo<br> LEFEVRO Alexandro",
         "navigate": "Navigation",
+        "planner_page": "🇦🇩 Planificator del activita"
     },
 }
 
@@ -534,6 +538,7 @@ def home():
             (f"{translations[lang]['journey_data']}", "pageA"),
             (f"{translations[lang]['predictions']}", "pageB"),
             (f"{translations[lang]['users_reviews']}", "pageC"),
+            (f"{translations[lang]['planner_page']}", "pageD"),
         ]
 
         for label, page in buttons:
@@ -569,6 +574,8 @@ def main():
         render_subpageB()
     elif st.session_state.page == "pageC":
         render_subpageC()
+    elif st.session_state.page == "pageD":
+        pp(lang)
 
 
 main()
