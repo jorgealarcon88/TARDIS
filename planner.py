@@ -2,6 +2,21 @@ import streamlit as st
 import pandas as pd
 import requests
 
+city_metro_prices = {
+    "Paris": 2.15,
+    "Lyon": 2.00,
+    "Marseille": 1.80,
+    "Lille": 1.80,
+    "Toulouse": 1.80,
+    "Rennes": 1.70,
+    "Bordeaux": 1.80,
+    "Strasbourg": 1.90,
+    "Nantes": 1.80,
+    "Nice": 1.70,
+    "Montpellier": 1.60,
+    "Grenoble": 1.80
+}
+
 # Dictionnaire de traductions
 translations = {
     "fr": {
@@ -20,7 +35,7 @@ translations = {
         "total_activities": "💰 **Total activités :**",
         "total_metro": "➕ **Ticket de métro :**",
         "total_final": "🔢 **Total final :**",
-        "total_duration": "⏱️ **Durée total:**",
+        "total_duration": "⏱️ **Durée totale:**",
         "delete_selected": "🗑️ Supprimer la sélection",
         "add_activities_first": "Ajoutez des activités pour commencer.",
         "return_home": "🏠 Retour à la page d'accueil",
@@ -182,21 +197,6 @@ def estimer_prix_avec_ollama(nom_activite: str) -> float:
 
 def planner_page(lang):
     t = translations[lang]
-
-    city_metro_prices = {
-        "Paris": 2.15,
-        "Lyon": 2.00,
-        "Marseille": 1.80,
-        "Lille": 1.80,
-        "Toulouse": 1.80,
-        "Rennes": 1.70,
-        "Bordeaux": 1.80,
-        "Strasbourg": 1.90,
-        "Nantes": 1.80,
-        "Nice": 1.70,
-        "Montpellier": 1.60,
-        "Grenoble": 1.80
-    }
 
     st.title(t["title"])
 

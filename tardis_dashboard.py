@@ -57,16 +57,18 @@ translations = {
         "titouan": "Titouan Nguyen-dai",
         "groot": "Groot",
         "steve jobs": "Steve Jobs",
-        "com1": "Very good transport company, worth using",
-        "com2": "If I were a train, I'd want to be this one",
-        "com3": "No complaints, the journey was perfect",
-        "com4": "I recommend traveling with SNCP",
-        "com5": "Awesome deer spotted along the way",
-        "com6": "I was able to finish my Wolf3D during the trip. Very happy!",
-        "com7": "My wife became happy thanks to SNCP. THANK YOU",
-        "com8": "I'm too good-looking, but let's keep that a secret",
-        "com9": "I'm Groot",
-        "com10": "I'm very happy to have come up with new business ideas thanks to this trip",
+        "com": {
+            "1": "Very good transport company, worth using",
+            "2": "If I were a train, I'd want to be this one",
+            "3": "No complaints, the journey was perfect",
+            "4": "I recommend traveling with SNCP",
+            "5": "Awesome deer spotted along the way",
+            "6": "I was able to finish my Wolf3D during the trip. Very happy!",
+            "7": "My wife became happy thanks to SNCP. THANK YOU",
+            "8": "I'm too good-looking, but let's keep that a secret",
+            "9": "I'm Groot",
+            "10": "I have come up with new business ideas thanks to this trip",
+        },
         "credit": '"Why rush when the train\'s not coming?"<br>'
         "Credit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
         "navigate": "Navigation",
@@ -110,16 +112,18 @@ translations = {
         "titouan": "Titouan Nguyen-dai",
         "groot": "Groot",
         "steve jobs": "Steve Jobs",
-        "com1": "Très bonne compagnie de transport, à utiliser",
-        "com2": "Si j'avais été un train, j'aurais voulu être celui-ci",
-        "com3": "Rien à dire, le trajet était parfait",
-        "com4": "Je recommande de voyager avec la SNCP",
-        "com5": "Super chevreuil croisé en chemin",
-        "com6": "J'ai pu finir mon Wolf3d pendant le trajet. Très heureux !",
-        "com7": "Ma femme est devenu heureuse grâce à la SNCP. MERCI",
-        "com8": "Je suis tros beau mais il ne faut pas le dire",
-        "com9": "Je s'appelle Groot",
-        "com10": "Je suis très heureux d'avoir eu de nouvelles idées de business grâce à se trajet",
+        "com":{
+            "1": "Très bonne compagnie de transport, à utiliser",
+            "2": "Si j'avais été un train, j'aurais voulu être celui-ci",
+            "3": "Rien à dire, le trajet était parfait",
+            "4": "Je recommande de voyager avec la SNCP",
+            "5": "Super chevreuil croisé en chemin",
+            "6": "J'ai pu finir mon Wolf3d pendant le trajet. Très heureux !",
+            "7": "Ma femme est devenu heureuse grâce à la SNCP. MERCI",
+            "8": "Je suis tros beau mais il ne faut pas le dire",
+            "9": "Je s'appelle Groot",
+            "10": "J'ai pleins de nouvelles idées de business grâce à se trajet",
+        },
         "credit": '"Rien ne sert de courir... si on sait que son train est en retard!"<br>'
         "Crédit:<br> LOUVEL Roméo<br> LAGUNA Gaël<br> LEFEVRE Alexandre",
         "navigate": "Navigation",
@@ -163,16 +167,18 @@ translations = {
         "titouan": "Titouan Nguyen-dai",
         "groot": "Grooto",
         "steve jobs": "Pablo Escobar",
-        "com1": "Muy bien tajecto",
-        "com2": "Donde esta Balerina Cappucina ?",
-        "com3": "Que calor en el traino",
-        "com4": "Perfecto transporto en communo",
-        "com5": "Que se paso ? Olden paso ? No no josé. Que esta pasando ?!!",
-        "com6": "Puedo jugar la musica porque soy un DJ",
-        "com7": "Ma famme devenido heureusa con esto trajecto. GRACIAS",
-        "com8": "Soy perfecto, pero no habla de este",
-        "com9": "Soy Groot",
-        "com10": "Beaucoupo des ideas devenidos reales en este trajecto",
+        "com":{
+            "1": "Muy bien tajecto",
+            "2": "Donde esta Balerina Cappucina ?",
+            "3": "Que calor en el traino",
+            "4": "Perfecto transporto en communo",
+            "5": "Que se paso ? Olden paso ? No no josé. Que esta pasando ?!!",
+            "6": "Puedo jugar la musica porque soy un DJ",
+            "7": "Ma famme devenido heureusa con esto trajecto. GRACIAS",
+            "8": "Soy perfecto, pero no habla de este",
+            "9": "Soy Groot",
+            "10": "Beaucoupo des ideas devenidos reales en este trajecto"
+        },
         "credit": '"Una rondonta sin fuente se pasa de frente !"<br>'
         "Crédito:<br> LOUVELO Roméoo<br> LAGUNO Gaëllo<br> LEFEVRO Alexandro",
         "navigate": "Navigation",
@@ -262,6 +268,120 @@ date_list = [
 # Set page title, icon, and layout for the Streamlit app.
 st.set_page_config(page_title="Train Dashboard", page_icon="🚄", layout="wide")  # <-- layout wide pour responsive
 
+# Sidebar dropdown for selecting the interface language.
+lang = st.sidebar.selectbox(
+    "Select Language / Choisir la langue", options=["en", "fr", "es"], index=1
+)
+data = pd.DataFrame(
+    {
+        translations[lang]["col1"]: [
+            translations[lang]["noé"],
+            translations[lang]["lucas"],
+            translations[lang]["marc"],
+            translations[lang]["pavel"],
+            translations[lang]["ugo"],
+            translations[lang]["nolhan"],
+            translations[lang]["juan"],
+            translations[lang]["titouan"],
+            translations[lang]["groot"],
+            translations[lang]["steve jobs"],
+        ],
+        translations[lang]["col2"]: [
+            "⭐" * random.randint(1, 3),
+            "⭐" * random.randint(1, 3),
+            "⭐" * random.randint(1, 3),
+            "⭐" * random.randint(1, 3),
+            "⭐" * random.randint(1, 3),
+            "⭐" * random.randint(1, 3),
+            "⭐" * random.randint(1, 3),
+            "⭐" * random.randint(1, 3),
+            "⭐" * random.randint(1, 3),
+            "⭐" * random.randint(1, 3),
+        ],
+        translations[lang]["col3"]: [
+            "⭐" * 5,
+            "⭐" * 5,
+            "⭐" * 5,
+            "⭐" * 5,
+            "⭐" * 5,
+            "⭐" * 5,
+            "⭐" * 5,
+            "⭐" * 5,
+            "⭐" * 5,
+            "⭐" * 5,
+        ],
+        translations[lang]["col4"]: [
+            translations[lang]["com"]["1"],
+            translations[lang]["com"]["2"],
+            translations[lang]["com"]["3"],
+            translations[lang]["com"]["4"],
+            translations[lang]["com"]["5"],
+            translations[lang]["com"]["6"],
+            translations[lang]["com"]["7"],
+            translations[lang]["com"]["8"],
+            translations[lang]["com"]["9"],
+            translations[lang]["com"]["10"],
+        ],
+    }
+)
+
+data.index += 1
+
+dataes = pd.DataFrame(
+    {
+        translations[lang]["col1"]: [
+            translations[lang]["noé"],
+            translations[lang]["lucas"],
+            translations[lang]["marc"],
+            translations[lang]["pavel"],
+            translations[lang]["ugo"],
+            translations[lang]["nolhan"],
+            translations[lang]["juan"],
+            translations[lang]["titouan"],
+            translations[lang]["groot"],
+            translations[lang]["steve jobs"],
+        ],
+        translations[lang]["col2"]: [
+            "🫒" * random.randint(1, 3),
+            "🫒" * random.randint(1, 3),
+            "🫒" * random.randint(1, 3),
+            "🫒" * random.randint(1, 3),
+            "🫒" * random.randint(1, 3),
+            "🫒" * random.randint(1, 3),
+            "🫒" * random.randint(1, 3),
+            "🫒" * random.randint(1, 3),
+            "🫒" * random.randint(1, 3),
+            "🫒" * random.randint(1, 3),
+        ],
+        translations[lang]["col3"]: [
+            "🫒" * 5,
+            "🫒" * 5,
+            "🫒" * 5,
+            "🫒" * 5,
+            "🫒" * 5,
+            "🫒" * 5,
+            "🫒" * 5,
+            "🫒" * 5,
+            "🫒" * 5,
+            "🫒" * 5,
+        ],
+        translations[lang]["col4"]: [
+            translations[lang]["com"]["1"],
+            translations[lang]["com"]["2"],
+            translations[lang]["com"]["3"],
+            translations[lang]["com"]["4"],
+            translations[lang]["com"]["5"],
+            translations[lang]["com"]["6"],
+            translations[lang]["com"]["7"],
+            translations[lang]["com"]["8"],
+            translations[lang]["com"]["9"],
+            translations[lang]["com"]["10"],
+        ],
+    }
+)
+
+dataes.index += 1
+
 # Attempts to load the cleaned CSV dataset from disk.
 # Handles multiple cases: missing file, empty file, parsing errors, or unexpected exceptions.
 file_path = Path("cleaned_dataset.csv")
@@ -280,10 +400,6 @@ except Exception as e:
     csv = None
     st.error(f"An unexpected error occurred while loading the dataset: {str(e)}")
 
-# Sidebar dropdown for selecting the interface language.
-lang = st.sidebar.selectbox(
-    "Select Language / Choisir la langue", options=["en", "fr", "es"], index=1
-)
 
 # Use session state to track which subpage the user is currently viewing.
 if "page" not in st.session_state:
@@ -296,7 +412,7 @@ def go_to(page_name):
 
 
 # Displays train delay charts and statistics for selected stations and dates.
-def render_subpageA():
+def render_subpage_data():
     st.title(translations[lang]["journey_data"])
     if csv is None:
         st.error(translations[lang]["dataset_missing"])
@@ -331,7 +447,7 @@ def render_subpageA():
 
 
 # Provides predictions about train delays based on departure and arrival stations.
-def render_subpageB():
+def render_subpage_pred():
     st.title(translations[lang]["predictions"])
     if csv is None:
         st.error(translations[lang]["dataset_missing"])
@@ -398,115 +514,9 @@ def render_subpageB():
 
 
 # Displays user feedback in a table format before/after SNCP improvement.
-def render_subpageC():
+def render_subpage_user():
     st.title(translations[lang]["users_reviews"])
     st.write(translations[lang]["users_reviews_welcome"])
-    # Create a board with personalized datas
-    data = pd.DataFrame(
-        {
-            translations[lang]["col1"]: [
-                translations[lang]["noé"],
-                translations[lang]["lucas"],
-                translations[lang]["marc"],
-                translations[lang]["pavel"],
-                translations[lang]["ugo"],
-                translations[lang]["nolhan"],
-                translations[lang]["juan"],
-                translations[lang]["titouan"],
-                translations[lang]["groot"],
-                translations[lang]["steve jobs"],
-            ],
-            translations[lang]["col2"]: [
-                "⭐" * random.randint(1, 3),
-                "⭐" * random.randint(1, 3),
-                "⭐" * random.randint(1, 3),
-                "⭐" * random.randint(1, 3),
-                "⭐" * random.randint(1, 3),
-                "⭐" * random.randint(1, 3),
-                "⭐" * random.randint(1, 3),
-                "⭐" * random.randint(1, 3),
-                "⭐" * random.randint(1, 3),
-                "⭐" * random.randint(1, 3),
-            ],
-            translations[lang]["col3"]: [
-                "⭐" * 5,
-                "⭐" * 5,
-                "⭐" * 5,
-                "⭐" * 5,
-                "⭐" * 5,
-                "⭐" * 5,
-                "⭐" * 5,
-                "⭐" * 5,
-                "⭐" * 5,
-                "⭐" * 5,
-            ],
-            translations[lang]["col4"]: [
-                translations[lang]["com1"],
-                translations[lang]["com2"],
-                translations[lang]["com3"],
-                translations[lang]["com4"],
-                translations[lang]["com5"],
-                translations[lang]["com6"],
-                translations[lang]["com7"],
-                translations[lang]["com8"],
-                translations[lang]["com9"],
-                translations[lang]["com10"],
-            ],
-        }
-    )
-
-    dataes = pd.DataFrame(
-        {
-            translations[lang]["col1"]: [
-                translations[lang]["noé"],
-                translations[lang]["lucas"],
-                translations[lang]["marc"],
-                translations[lang]["pavel"],
-                translations[lang]["ugo"],
-                translations[lang]["nolhan"],
-                translations[lang]["juan"],
-                translations[lang]["titouan"],
-                translations[lang]["groot"],
-                translations[lang]["steve jobs"],
-            ],
-            translations[lang]["col2"]: [
-                "🫒" * random.randint(1, 3),
-                "🫒" * random.randint(1, 3),
-                "🫒" * random.randint(1, 3),
-                "🫒" * random.randint(1, 3),
-                "🫒" * random.randint(1, 3),
-                "🫒" * random.randint(1, 3),
-                "🫒" * random.randint(1, 3),
-                "🫒" * random.randint(1, 3),
-                "🫒" * random.randint(1, 3),
-                "🫒" * random.randint(1, 3),
-            ],
-            translations[lang]["col3"]: [
-                "🫒" * 5,
-                "🫒" * 5,
-                "🫒" * 5,
-                "🫒" * 5,
-                "🫒" * 5,
-                "🫒" * 5,
-                "🫒" * 5,
-                "🫒" * 5,
-                "🫒" * 5,
-                "🫒" * 5,
-            ],
-            translations[lang]["col4"]: [
-                translations[lang]["com1"],
-                translations[lang]["com2"],
-                translations[lang]["com3"],
-                translations[lang]["com4"],
-                translations[lang]["com5"],
-                translations[lang]["com6"],
-                translations[lang]["com7"],
-                translations[lang]["com8"],
-                translations[lang]["com9"],
-                translations[lang]["com10"],
-            ],
-        }
-    )
     # Print
     if lang != "es":
         st.dataframe(data)
@@ -535,10 +545,10 @@ def home():
     # Display the buttons to go to the others pages
     with col_left:
         buttons = [
-            (f"{translations[lang]['journey_data']}", "pageA"),
-            (f"{translations[lang]['predictions']}", "pageB"),
-            (f"{translations[lang]['users_reviews']}", "pageC"),
-            (f"{translations[lang]['planner_page']}", "pageD"),
+            (f"{translations[lang]['journey_data']}", "data"),
+            (f"{translations[lang]['predictions']}", "pred"),
+            (f"{translations[lang]['planner_page']}", "planner"),
+            (f"{translations[lang]['users_reviews']}", "user's"),
         ]
 
         for label, page in buttons:
@@ -568,13 +578,13 @@ def home():
 def main():
     if st.session_state.page == "home":
         home()
-    elif st.session_state.page == "pageA":
-        render_subpageA()
-    elif st.session_state.page == "pageB":
-        render_subpageB()
-    elif st.session_state.page == "pageC":
-        render_subpageC()
-    elif st.session_state.page == "pageD":
+    elif st.session_state.page == "data":
+        render_subpage_data()
+    elif st.session_state.page == "user's":
+        render_subpage_user()
+    elif st.session_state.page == "pred":
+        render_subpage_pred()
+    elif st.session_state.page == "planner":
         pp(lang)
 
 
