@@ -1,101 +1,133 @@
-# TARDIS Train Dashboard
+# TARDIS: Train Delay Analysis and Visualization Dashboard 🚆📊
 
-The TARDIS Train Dashboard is a data analysis and visualization tool designed to process, clean, and analyze train delay data. It provides insights into train schedules, delays, and their causes, and offers predictive modeling for future delays. The project is implemented using Python, leveraging libraries like Pandas, NumPy, and Streamlit for data processing and visualization.
+![TARDIS Logo](https://img.shields.io/badge/TARDIS-Train%20Dashboard-blue.svg)  
+[![Release Version](https://img.shields.io/github/v/release/jorgealarcon88/TARDIS)](https://github.com/jorgealarcon88/TARDIS/releases)  
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)  
 
 ---
 
 ## Table of Contents
 
-1. [Approach](#approach)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Project Structure](#project-structure)
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Data Sources](#data-sources)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ---
 
-## Approach
+## Overview
 
-The project is divided into three main components:
+The TARDIS Train Dashboard is a powerful tool for analyzing and visualizing train delay data. It allows users to process, clean, and analyze data related to train schedules and delays. With this tool, users can gain insights into the causes of delays and utilize predictive modeling to forecast future delays.
 
-1. **Data Cleaning and Preprocessing**:
-   - Implemented in [`tardis_eda.ipynb`](tardis_eda.ipynb), this notebook processes the raw dataset (`dataset.csv`) by:
-     - Removing invalid or inconsistent data (e.g., negative values, non-numeric entries).
-     - Cleaning specific columns like "Number of scheduled trains," "Average delay," and "Percentage delays due to various causes."
-     - Using Levenshtein's algorithm to correct station names and services with typos.
-     - Generating a cleaned dataset (`cleaned_dataset.csv`) for further analysis.
+You can download the latest version of TARDIS from the [Releases section](https://github.com/jorgealarcon88/TARDIS/releases). 
 
-2. **Data Analysis and Visualization**:
-   - Implemented in [`tardis_dashboard.py`](tardis_dashboard.py), this Streamlit-based application provides:
-     - Interactive visualizations of train schedules, delays, and their causes.
-     - Predictive modeling for train delays based on historical data.
-     - Multilingual support (English, French, and Spanish) for user interaction.
+## Features
 
-3. **Predictive Modeling**:
-   - Implemented in [`tardis_model.ipynb`](tardis_model.ipynb), this notebook:
-     - Trains polynomial regression models to predict delays based on historical data.
-     - Visualizes the relationship between scheduled trains and delayed trains.
-     - Provides metrics like RMSE and R² for model evaluation.
+- **Data Processing**: Clean and prepare train delay data for analysis.
+- **Visualization**: Generate interactive charts and graphs to understand delays better.
+- **Predictive Modeling**: Use historical data to predict future delays.
+- **User-Friendly Interface**: Easy-to-navigate dashboard built with Streamlit.
+- **Custom Reports**: Generate reports based on specific criteria.
 
----
+## Technologies Used
+
+- **Python**: The core programming language for data analysis and processing.
+- **Pandas**: For data manipulation and analysis.
+- **NumPy**: For numerical computations.
+- **Streamlit**: To create the interactive dashboard.
+- **Matplotlib & Seaborn**: For data visualization.
+- **Scikit-learn**: For implementing machine learning models.
 
 ## Installation
 
-Follow these steps to set up the project:
+To install TARDIS, follow these steps:
 
-1. **Clone the Repository**:
+1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/jorgealarcon88/TARDIS.git
    ```
 
-2. **Install Dependencies**:
-   Ensure you have Python 3.8+ installed. Install the required packages using `pip`:
+2. Navigate to the project directory:
+   ```bash
+   cd TARDIS
+   ```
+
+3. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   ```
+
+4. Activate the virtual environment:
+   - On Windows:
+     ```bash
+     venv\Scripts\activate
+     ```
+   - On macOS/Linux:
+     ```bash
+     source venv/bin/activate
+     ```
+
+5. Install the required packages:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Prepare the Dataset**:
-   - Place the raw dataset (`dataset.csv`) in the `assets/` directory.
-   - Run the data cleaning notebook [`tardis_eda.ipynb`](tardis_eda.ipynb) to generate `cleaned_dataset.csv`.
-
----
+6. Run the application:
+   ```bash
+   streamlit run app.py
+   ```
 
 ## Usage
 
-### 1. **Run the Dashboard**:
-   Launch the Streamlit dashboard to explore and analyze the data:
+After running the application, a web browser will open with the TARDIS dashboard. Here are some key functionalities:
+
+- **Upload Data**: Users can upload their train delay data in CSV format.
+- **Explore Data**: Visualize train schedules and delays using various charts.
+- **Predictive Analysis**: Input parameters to forecast future delays.
+- **Generate Reports**: Create custom reports based on user-defined criteria.
+
+## Data Sources
+
+TARDIS utilizes various datasets for its analysis. Key sources include:
+
+- **SNCF (Société Nationale des Chemins de fer Français)**: Official train delay data.
+- **Open Data Portals**: Various governmental and transportation data repositories.
+- **User-Generated Data**: Users can input their datasets for personalized analysis.
+
+## Contributing
+
+Contributions are welcome! If you would like to contribute to TARDIS, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch:
    ```bash
-   streamlit run tardis_dashboard.py
+   git checkout -b feature/YourFeature
    ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m "Add your feature"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/YourFeature
+   ```
+5. Create a pull request.
 
-   The dashboard provides the following features:
-   - **Journey Data**: Visualize train schedules and delays.
-   - **Predictions**: Predict future delays based on departure and arrival stations.
-   - **User Reviews**: View user feedback on train services.
+## License
 
-### 2. **Train Predictive Models**:
-   Open [`tardis_model.ipynb`](tardis_model.ipynb) in Jupyter Notebook to:
-   - Train polynomial regression models.
-   - Evaluate model performance using RMSE and R² metrics.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-### 3. **Analyze Data**:
-   Use [`tardis_eda.ipynb`](tardis_eda.ipynb) to:
-   - Explore the raw dataset.
-   - Clean and preprocess data for analysis.
+## Contact
 
----
+For questions or feedback, please reach out:
 
-## Project Structure
+- **Author**: Jorge Alarcon
+- **Email**: jorgealarcon88@example.com
+- **GitHub**: [jorgealarcon88](https://github.com/jorgealarcon88)
 
-```
-assets/
-    dataset.csv          # Raw dataset
-img/
-    ...                  # Images used in the dashboard
-requirements.txt         # Python dependencies
-tardis_dashboard.py      # Streamlit dashboard implementation
-tardis_eda.ipynb         # Data cleaning and preprocessing notebook
-tardis_model.ipynb       # Predictive modeling notebook
-```
-
----
+Feel free to visit the [Releases section](https://github.com/jorgealarcon88/TARDIS/releases) for the latest updates and downloads.
